@@ -10,6 +10,7 @@ from clipboard_keyremap import Remapper
 import  ui
 import openaivision
 import platformdirs
+from type_paste import ClipboardTyper
 
 
 app_auther = "vaisaskh"
@@ -33,11 +34,11 @@ class HotkeyManager:
 
     def on_start_remapping_pressed(self):
         print('on_start_remapping_pressed')
-        self.listener.start_remapping()
+        #self.listener.start_remapping()
 
     def on_stop_remapping_pressed(self):
         print('keybinding_to_stop_remapping pressed')
-        self.listener.stop_remapping()
+        #self.listener.stop_remapping()
 
     def on_take_screenshot_pressed(self):
         print('take screenshot pressed')
@@ -46,6 +47,12 @@ class HotkeyManager:
     def on_sent_image_to_chat_gpt_pressed(self):
         print('senting image to open ai')
         openaivision.openai_image_reponse(settings['openai_key'],image_file_path)
+
+    def on_type_clipboard_pressed(self):
+        print('typing clipboard')
+        typer = ClipboardTyper(settings['type_delay_lower_bound'],settings['type_delay_upper_bound'])
+        typer.start_typing()
+
 
     def on_press(self, key):
         print(f"Key pressed: {key}")
@@ -59,7 +66,8 @@ class HotkeyManager:
                 settings['keybinding_to_start_typing']: self.on_start_remapping_pressed,
                 settings['keybinding_to_stop_typing']: self.on_stop_remapping_pressed,
                 settings['keybinding_to_take_screenshot']: self.on_take_screenshot_pressed,
-                settings['keybinding_to_sent_image_to_chat_gpt']: self.on_sent_image_to_chat_gpt_pressed
+                settings['keybinding_to_sent_image_to_chat_gpt']: self.on_sent_image_to_chat_gpt_pressed,
+                settings['keybinding_to_type_clipboard_contents']: self.on_type_clipboard_pressed
             })
             self.keyboard_instance.start()
 
