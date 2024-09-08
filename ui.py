@@ -5,7 +5,6 @@ from tkinter import StringVar, OptionMenu, Label, Entry, Button
 from settings import load_settings, save_settings
 
 
-
 # Function to create the PyTinker GUI for settings
 def create_settings_gui(config_file,app_name):
     settings = load_settings(config_file,app_name)
@@ -85,7 +84,11 @@ def create_settings_gui(config_file,app_name):
         save_settings(config_file, settings)
         root.destroy()
     
-    Button(root, text="Save", command=save).grid(row=5, column=0, columnspan=2, pady=10)
+    warning_lbl = Label(root, text="please relaunch app after saving for changes to take effect")
+    warning_lbl.grid(row=10, column=0, columnspan=2, pady=10)
+    warning_lbl.config(fg="red")
+
+    Button(root, text="Save", command=save).grid(row=11, column=0, columnspan=2, pady=10)
     
     root.mainloop()
 
