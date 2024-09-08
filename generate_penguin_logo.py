@@ -63,7 +63,15 @@ def draw_penguin_logo(width,height):
 
 # Optionally resize for final use (e.g., downscale to 200x200 for smaller icons)
     final_image = image.resize((width, height))
-    final_image.save('simple_penguin_logo_high_res_resized.png')
+    #final_image.save('simple_penguin_logo_high_res_resized.png')
+
+# disable this after generatin icon
+    #icon_sizes = [(64,64)]
+    #final_image.save('logo.ico', sizes=icon_sizes)
+
+
+
+
 
     return final_image
 
