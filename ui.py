@@ -44,11 +44,16 @@ def create_settings_gui(config_file,app_name):
 
     # Keybinding to Start Typing
     Label(root, text="Keybinding to Start Typing").grid(row=4, column=0, padx=10, pady=5, sticky="w")
-    Entry(root, textvariable=start_keybinding_var).grid(row=4, column=1, padx=10, pady=5)
+    start_keybinding_entey= Entry(root, textvariable=start_keybinding_var)
+    start_keybinding_entey.grid(row=4, column=1, padx=10, pady=5)
+    start_keybinding_entey.config(state='disabled')
 
     # Keybinding to Stop Typing
     Label(root, text="Keybinding to Stop Typing").grid(row=5, column=0, padx=10, pady=5, sticky="w")
-    Entry(root, textvariable=stop_keybinding_var).grid(row=5, column=1, padx=10, pady=5)
+    stop_keybinding_entry = Entry(root, textvariable=stop_keybinding_var)
+    stop_keybinding_entry.grid(row=5, column=1, padx=10, pady=5)
+    stop_keybinding_entry.config(state='disabled')
+
     
     
     Label(root, text="Keybinding to type from cilpboard").grid(row=6, column=0, padx=10, pady=5, sticky="w")
