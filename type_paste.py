@@ -19,8 +19,14 @@ class ClipboardTyper:
         for char in clipboard_content:
             if self._stop_event.is_set():
                 break  # Stop typing if the event is set
-            self.keyboard.type(char)
+
+            if char.isupper() or char in "~!@#$%^&*()_+{}:\"<>?":  # Characters that require Shift
+                with self.keyboard.pressed(Key.shift):
+                    self.keyboard.type(char)
+            else:
+                self.keyboard.type(char)
             time.sleep(random.uniform(float(self.type_delay_lower_bound),float(self.type_delay_upper_bound))) 
+
 
         # Optionally, press Enter after typing
         if not self._stop_event.is_set():
