@@ -1,5 +1,8 @@
 # AiHelper
 
+Total downloads: [![Github All Releases](https://img.shields.io/github/downloads/Vaisakhkm2625/AiHelper2/total.svg)]()
+
+
 A app that listens for keybindings and do various tasks
 
 
