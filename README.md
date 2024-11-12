@@ -6,7 +6,8 @@ Total downloads: [![Github All Releases](https://img.shields.io/github/downloads
 A app that listens for keybindings and do various tasks
 
 
-got to release page and download exe file
+go to release page and download exe file
+https://github.com/Vaisakhkm2625/AiHelper2/releases/tag/v0.0.2
 
 
 ## For developers
