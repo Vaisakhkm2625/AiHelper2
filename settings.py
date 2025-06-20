@@ -13,9 +13,9 @@ def load_settings(config_file,app_name):
         config["SETTINGS"] = {
             "openai_key": "",
             "ocr_option": "tesseract",
-    
-            "keybinding_to_start_typing": "<ctrl>+<alt>+h",
-            "keybinding_to_stop_typing": "<ctrl>+<alt>+i",
+            "keybinding_to_start_typing": "b+k+r",
+            "keybinding_to_stop_typing": "e+k+r",
+            "keybinding_to_resume_typing": "<ctrl>+<alt>+r",
             "keybinding_to_take_screenshot": "<ctrl>+<alt>+s",
             "keybinding_to_sent_image_to_chat_gpt": "<ctrl>+<alt>+o",
             "keybinding_to_type_clipboard_contents": "<ctrl>+<alt>+p",
@@ -33,8 +33,9 @@ def load_settings(config_file,app_name):
     settings = {
         "openai_key": config.get("SETTINGS", "openai_key", fallback=""),
         "ocr_option": config.get("SETTINGS", "ocr_option", fallback="tesseract"),
-        "keybinding_to_start_typing": config.get("SETTINGS", "keybinding_to_start_typing", fallback="<ctrl>+<alt>+h"),
-        "keybinding_to_stop_typing": config.get("SETTINGS", "keybinding_to_stop_typing", fallback="<ctrl>+<alt>+i"),
+        "keybinding_to_start_typing": config.get("SETTINGS", "keybinding_to_start_typing", fallback="b+k+r"),
+        "keybinding_to_stop_typing": config.get("SETTINGS", "keybinding_to_stop_typing", fallback="e+k+r"),
+        "keybinding_to_resume_typing": config.get("SETTINGS", "keybinding_to_resume_typing", fallback="c+k+r"),
         "keybinding_to_take_screenshot": config.get("SETTINGS", "keybinding_to_take_screenshot", fallback="<ctrl>+<alt>+s"),
         "keybinding_to_sent_image_to_chat_gpt": config.get("SETTINGS", "keybinding_to_sent_image_to_chat_gpt", fallback="<ctrl>+<alt>+o"),
         "keybinding_to_type_clipboard_contents": config.get("SETTINGS", "keybinding_to_type_clipboard_contents", fallback="<ctrl>+<alt>+p"),

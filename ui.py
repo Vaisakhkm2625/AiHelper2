@@ -1,7 +1,7 @@
 import platformdirs 
 import os
 import tkinter as tk
-from tkinter import StringVar, OptionMenu, Label, Entry, Button
+from tkinter import StringVar, OptionMenu, Label, Entry, Button, ttk
 from settings import load_settings, save_settings
 
 
@@ -15,8 +15,9 @@ def create_settings_gui(config_file,app_name):
     openai_key_var = StringVar(value=settings["openai_key"])
     ocr_option_var = StringVar(value=settings["ocr_option"])
     start_keybinding_var = StringVar(value=settings["keybinding_to_start_typing"])
-    fake_app_name_var = StringVar(value=settings["fake_app_name"])
     stop_keybinding_var = StringVar(value=settings["keybinding_to_stop_typing"])
+    resume_keybinding_var = StringVar(value=settings["keybinding_to_resume_typing"])
+    fake_app_name_var = StringVar(value=settings["fake_app_name"])
     screenshot_keybinding_var = StringVar(value=settings["keybinding_to_take_screenshot"])
     sent_image_to_chat_gpt_keybinding_var = StringVar(value=settings["keybinding_to_sent_image_to_chat_gpt"])
     type_clipboard_contents_keybinding_var= StringVar(value=settings["keybinding_to_type_clipboard_contents"])
@@ -45,27 +46,34 @@ def create_settings_gui(config_file,app_name):
     Label(root, text="Keybinding to Start Typing").grid(row=4, column=0, padx=10, pady=5, sticky="w")
     start_keybinding_entey= Entry(root, textvariable=start_keybinding_var)
     start_keybinding_entey.grid(row=4, column=1, padx=10, pady=5)
-    start_keybinding_entey.config(state='disabled')
+    #start_keybinding_entey.config(state='disabled')
+
+    # Keybinding to Resume Typing
+    Label(root, text="Keybinding to Resume Typing").grid(row=5, column=0, padx=10, pady=5, sticky="w")
+    stop_keybinding_entry = Entry(root, textvariable=resume_keybinding_var)
+    stop_keybinding_entry.grid(row=5, column=1, padx=10, pady=5)
 
     # Keybinding to Stop Typing
-    Label(root, text="Keybinding to Stop Typing").grid(row=5, column=0, padx=10, pady=5, sticky="w")
+    Label(root, text="Keybinding to Stop Typing").grid(row=6, column=0, padx=10, pady=5, sticky="w")
     stop_keybinding_entry = Entry(root, textvariable=stop_keybinding_var)
-    stop_keybinding_entry.grid(row=5, column=1, padx=10, pady=5)
-    stop_keybinding_entry.config(state='disabled')
+    stop_keybinding_entry.grid(row=6, column=1, padx=10, pady=5)
+    #stop_keybinding_entry.config(state='disabled')
+    
+    separator = ttk.Separator(root, orient='horizontal')
+    separator.grid(row=8, column=0, padx=10, pady=5, sticky="w")
 
     
-    
-    Label(root, text="Keybinding to type from cilpboard").grid(row=6, column=0, padx=10, pady=5, sticky="w")
-    Entry(root, textvariable=type_clipboard_contents_keybinding_var).grid(row=6, column=1, padx=10, pady=5)
+    Label(root, text="Keybinding to type from cilpboard").grid(row=8, column=0, padx=10, pady=5, sticky="w")
+    Entry(root, textvariable=type_clipboard_contents_keybinding_var).grid(row=8, column=1, padx=10, pady=5)
 
-    Label(root, text="typing delay upper bound").grid(row=7, column=0, padx=10, pady=5, sticky="w")
-    Entry(root, textvariable=type_delay_upper_bound_var).grid(row=7, column=1, padx=10, pady=5)
+    Label(root, text="Typing delay upper bound").grid(row=9, column=0, padx=10, pady=5, sticky="w")
+    Entry(root, textvariable=type_delay_upper_bound_var).grid(row=9, column=1, padx=10, pady=5)
 
-    Label(root, text="typing delay lower bound").grid(row=8, column=0, padx=10, pady=5, sticky="w")
-    Entry(root, textvariable=type_delay_lower_bound_var).grid(row=8, column=1, padx=10, pady=5)
+    Label(root, text="Typing delay lower bound").grid(row=10, column=0, padx=10, pady=5, sticky="w")
+    Entry(root, textvariable=type_delay_lower_bound_var).grid(row=10, column=1, padx=10, pady=5)
 
-    Label(root, text="fake app name").grid(row=9, column=0, padx=10, pady=5, sticky="w")
-    Entry(root, textvariable=fake_app_name_var).grid(row=9, column=1, padx=10, pady=5)
+    Label(root, text="Fake application name").grid(row=11, column=0, padx=10, pady=5, sticky="w")
+    Entry(root, textvariable=fake_app_name_var).grid(row=11, column=1, padx=10, pady=5)
 
     # Save Button
     def save():
@@ -85,10 +93,10 @@ def create_settings_gui(config_file,app_name):
         root.destroy()
     
     warning_lbl = Label(root, text="please relaunch app after saving for changes to take effect")
-    warning_lbl.grid(row=10, column=0, columnspan=2, pady=10)
+    warning_lbl.grid(row=12, column=0, columnspan=2, pady=10)
     warning_lbl.config(fg="red")
 
-    Button(root, text="Save", command=save).grid(row=11, column=0, columnspan=2, pady=10)
+    Button(root, text="Save", command=save).grid(row=13, column=0, columnspan=2, pady=10)
     
     root.mainloop()
 

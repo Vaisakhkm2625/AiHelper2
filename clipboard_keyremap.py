@@ -40,10 +40,10 @@ class Remapper:
         if key == keyboard.Key.esc:
             return False
 
-    def start_remapping(self):
+    def _start_remapping(self,):
         print('replacing with clipboard content')
-        self.index = 0
-        self.replacement_string = copykitten.paste()
+        #self.index = 0
+        #self.replacement_string = copykitten.paste()
         print(self.replacement_string)
 
         # Use context management to automatically clean up the listener
@@ -54,6 +54,29 @@ class Remapper:
                 suppress=True  # Suppress user inputs
             )
             self.listener.start()
+
+
+    def resume_remapping(self):
+        print('replacing with clipboard content')
+        self._start_remapping()
+
+
+    def start_remapping(self):
+        print('replacing with clipboard content')
+        self.index = 0
+        self.replacement_string = copykitten.paste()
+        self._start_remapping()
+        #self.replacement_string = copykitten.paste()
+        #print(self.replacement_string)
+
+        ## Use context management to automatically clean up the listener
+        #if self.listener is None or not self.listener.running:
+        #    self.listener = keyboard.Listener(
+        #        on_press=self.on_press,
+        #        on_release=self.on_release,
+        #        suppress=True  # Suppress user inputs
+        #    )
+        #    self.listener.start()
 
     def stop_remapping(self):
         print('keybinding_to_stop_typing pressed')

@@ -34,11 +34,15 @@ class HotkeyManager:
 
     def on_start_remapping_pressed(self):
         print('on_start_remapping_pressed')
-        #self.listener.start_remapping()
+        self.listener.start_remapping()
+
+    def on_resume_remapping_pressed(self):
+        print('keybinding_to_resume_remapping pressed')
+        self.listener.resume_remapping()
 
     def on_stop_remapping_pressed(self):
         print('keybinding_to_stop_remapping pressed')
-        #self.listener.stop_remapping()
+        self.listener.stop_remapping()
 
     def on_take_screenshot_pressed(self):
         print('take screenshot pressed')
@@ -65,6 +69,7 @@ class HotkeyManager:
             self.keyboard_instance = keyboard.GlobalHotKeys({
                 settings['keybinding_to_start_typing']: self.on_start_remapping_pressed,
                 settings['keybinding_to_stop_typing']: self.on_stop_remapping_pressed,
+                settings['keybinding_to_resume_typing']: self.on_resume_remapping_pressed,
                 settings['keybinding_to_take_screenshot']: self.on_take_screenshot_pressed,
                 settings['keybinding_to_sent_image_to_chat_gpt']: self.on_sent_image_to_chat_gpt_pressed,
                 settings['keybinding_to_type_clipboard_contents']: self.on_type_clipboard_pressed
@@ -77,6 +82,13 @@ class HotkeyManager:
             self.keyboard_instance = None
 
 
+
+#def on_press(ev):
+#    print(ev)
+#
+#with keyboard.Listener(on_press=on_press) as listener:
+#    listener.join()
+#
 
 # Initialize HotkeyManager
 hotkey_manager = HotkeyManager()
