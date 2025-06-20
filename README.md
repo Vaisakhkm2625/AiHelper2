@@ -34,3 +34,14 @@ pyinstaller.exe --onefile --windowed --icon=logo.ico --name aihelper main.py
 
 - currently do not support wayland on linux(i tried its hard to due security)
 
+## TODO:
+
+
+- [ ] screenshot preconfigured area (easy, do it later)
+- [x] windows capital keys - pynput limitation (https://pynput.readthedocs.io/en/latest/limitations.html)
+- [ ] windows capital keys - pynput limitation (https://pynput.readthedocs.io/en/latest/limitations.html)
+- [ ] wayland support (permission issue for getting keys - elevating privileges)
+- [ ] audio transcript context
+- [ ] invisible overlay 
+    - [ ] selection for audio text context for invisible overlay 
+
