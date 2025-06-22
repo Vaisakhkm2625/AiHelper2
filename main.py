@@ -1,6 +1,8 @@
 from pystray import Menu,MenuItem,Icon
 from pynput import keyboard
 
+import pprint
+
 import os
 from PIL import Image, ImageDraw
 from generate_penguin_logo import draw_penguin_logo
@@ -28,69 +30,61 @@ settings = load_settings(config_file,app_name)
 
 
 class HotkeyManager:
+
     def __init__(self):
         self.keyboard_instance = None
         self.listener = Remapper()
         self.clipboardtyper = ClipboardTyper(settings['type_delay_lower_bound'],settings['type_delay_upper_bound'])
 
-    def on_start_remapping_pressed(self):
+    def start_key_remapping(self):
         print('on_start_remapping_pressed')
         self.listener.start_remapping()
 
-    def on_resume_remapping_pressed(self):
+    def resume_key_remapping(self):
         print('keybinding_to_resume_remapping pressed')
         self.listener.resume_remapping()
 
-    def on_stop_remapping_pressed(self):
+    def stop_key_remapping(self):
         print('keybinding_to_stop_remapping pressed')
         self.listener.stop_remapping()
 
-    def on_take_screenshot_pressed(self):
+    def take_screenshot(self):
         print('take screenshot pressed')
         take_and_crop_screenshot_thread(image_file_path)
 
-    def on_sent_image_to_chat_gpt_pressed(self):
+    def sent_image_to_chat_gpt(self):
         print('senting image to open ai')
         openaivision.openai_image_reponse(settings['openai_key'],image_file_path)
 
-    def on_type_clipboard_pressed(self):
+    def start_type_from_clipboard(self):
         print('typing clipboard')
         #typer = ClipboardTyper(settings['type_delay_lower_bound'],settings['type_delay_upper_bound'])
         #typer.start_typing()
         self.clipboardtyper.start_typing()
 
-    def on_resume_type_clipboard_pressed(self):
+    def resume_type_from_clipboard(self):
         print('resume typing clipboard')
         self.clipboardtyper.resume_typing()
 
-    def on_stop_type_clipboard_pressed(self):
+    def stop_type_from_clipboard(self):
         print('typing clipboard')
         #typer = ClipboardTyper(settings['type_delay_lower_bound'],settings['type_delay_upper_bound'])
         #typer.start_typing()
         self.clipboardtyper.stop_typing()
 
 
-    def on_press(self, key):
-        print(f"Key pressed: {key}")
-
-    def on_release(self, key):
-        print(f"Key released: {key}")
-
     def start_hotkeys(self):
         if self.keyboard_instance is None:
+
+            # here we set the global keybindings from 
+            # the settings
+            keybinding_prefix = "keybinding_to_"
             self.keyboard_instance = keyboard.GlobalHotKeys({
-                settings['keybinding_to_start_typing']: self.on_start_remapping_pressed,
-                settings['keybinding_to_stop_typing']: self.on_stop_remapping_pressed,
-                settings['keybinding_to_resume_typing']: self.on_resume_remapping_pressed,
-
-                settings['keybinding_to_take_screenshot']: self.on_take_screenshot_pressed,
-                settings['keybinding_to_sent_image_to_chat_gpt']: self.on_sent_image_to_chat_gpt_pressed,
-                settings['keybinding_to_type_clipboard_contents']: self.on_type_clipboard_pressed,
-                settings['keybinding_to_stop_typing_clipboard_contents']: self.on_stop_type_clipboard_pressed,
-                settings['keybinding_to_resume_type_clipboard_pressed']: self.on_resume_type_clipboard_pressed
-
-
+                settings[key]: getattr(self, key.replace(keybinding_prefix, ""))
+                for key in settings
+                if key.startswith(keybinding_prefix) and hasattr(self, key.replace(keybinding_prefix, ""))
             })
+
             self.keyboard_instance.start()
 
     def stop_hotkeys(self):
