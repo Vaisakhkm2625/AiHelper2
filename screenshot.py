@@ -29,6 +29,12 @@ def crop_screenshot(img, start_x, start_y, end_x, end_y):
     #cropped_img.save("cropped_screenshot.png")  # Save the cropped screenshot
     return cropped_img
 
+
+def take_fullscreen_screenshot(image_file_path):
+    # Take a full-screen screenshot
+    full_screenshot = ImageGrab.grab()
+    full_screenshot.save(image_file_path)
+
 def take_and_crop_screenshot(image_file_path):
     # Take a full-screen screenshot
     full_screenshot = ImageGrab.grab()
@@ -48,6 +54,12 @@ def take_and_crop_screenshot_thread(image_file_path):
     print("Hotkey activated! Taking screenshot...")
     screenshot_thread = threading.Thread(target=take_and_crop_screenshot,args=(image_file_path,))
     screenshot_thread.start()
+
+def take_fullscreen_screenshot_thread(image_file_path):
+    print("Hotkey activated! Taking screenshot...")
+    screenshot_thread = threading.Thread(target=take_fullscreen_screenshot,args=(image_file_path,))
+    screenshot_thread.start()
+
 
 def for_canonical(f):
     return lambda k: f(listener.canonical(k))

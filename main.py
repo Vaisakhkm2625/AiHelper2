@@ -31,6 +31,7 @@ class HotkeyManager:
     def __init__(self):
         self.keyboard_instance = None
         self.listener = Remapper()
+        self.clipboardtyper = ClipboardTyper(settings['type_delay_lower_bound'],settings['type_delay_upper_bound'])
 
     def on_start_remapping_pressed(self):
         print('on_start_remapping_pressed')
@@ -54,8 +55,19 @@ class HotkeyManager:
 
     def on_type_clipboard_pressed(self):
         print('typing clipboard')
-        typer = ClipboardTyper(settings['type_delay_lower_bound'],settings['type_delay_upper_bound'])
-        typer.start_typing()
+        #typer = ClipboardTyper(settings['type_delay_lower_bound'],settings['type_delay_upper_bound'])
+        #typer.start_typing()
+        self.clipboardtyper.start_typing()
+
+    def on_resume_type_clipboard_pressed(self):
+        print('resume typing clipboard')
+        self.clipboardtyper.resume_typing()
+
+    def on_stop_type_clipboard_pressed(self):
+        print('typing clipboard')
+        #typer = ClipboardTyper(settings['type_delay_lower_bound'],settings['type_delay_upper_bound'])
+        #typer.start_typing()
+        self.clipboardtyper.stop_typing()
 
 
     def on_press(self, key):
@@ -70,9 +82,14 @@ class HotkeyManager:
                 settings['keybinding_to_start_typing']: self.on_start_remapping_pressed,
                 settings['keybinding_to_stop_typing']: self.on_stop_remapping_pressed,
                 settings['keybinding_to_resume_typing']: self.on_resume_remapping_pressed,
+
                 settings['keybinding_to_take_screenshot']: self.on_take_screenshot_pressed,
                 settings['keybinding_to_sent_image_to_chat_gpt']: self.on_sent_image_to_chat_gpt_pressed,
-                settings['keybinding_to_type_clipboard_contents']: self.on_type_clipboard_pressed
+                settings['keybinding_to_type_clipboard_contents']: self.on_type_clipboard_pressed,
+                settings['keybinding_to_stop_typing_clipboard_contents']: self.on_stop_type_clipboard_pressed,
+                settings['keybinding_to_resume_type_clipboard_pressed']: self.on_resume_type_clipboard_pressed
+
+
             })
             self.keyboard_instance.start()
 

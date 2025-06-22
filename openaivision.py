@@ -24,7 +24,7 @@ def openai_image_reponse(API_KEY,image_path):
         {
         "role": "user",
         "content": [
-            {"type": "text", "text": "please answer question in this image. response shouldn't be like an ai assistant,just answer is enough. don't use markdown format, don't user capital letters."},
+            {"type": "text", "text": "please answer question in this image. response shouldn't be like an ai assistant,just answer is enough. don't use markdown format, don't user capital letters. use word count as a indicator for how long the answer should be."},
             {
             "type": "image_url",
             "image_url": {
